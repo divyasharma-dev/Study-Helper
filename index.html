@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Manager</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">S</div>
+            <div>
+                <h2>Study</h2>
+                <span>MANAGER</span>
+            </div>
+        </div>
+
+        <nav>
+            <button class="nav-item active" onclick="showSection('dashboard', this)">
+                <span>⌂</span> Dashboard
+            </button>
+
+            <button class="nav-item" onclick="showSection('subjects', this)">
+                <span>▣</span> Subjects
+            </button>
+
+            <button class="nav-item" onclick="showSection('syllabus', this)">
+                <span>☷</span> Syllabus
+            </button>
+
+            <button class="nav-item" onclick="showSection('resources', this)">
+                <span>▤</span> Resources
+            </button>
+
+            <button class="nav-item" onclick="showSection('timer', this)">
+                <span>◷</span> Study Timer
+            </button>
+
+            <button class="nav-item" onclick="showSection('todo', this)">
+                <span>✓</span> To-Do List
+            </button>
+
+            <button class="nav-item" onclick="showSection('streak', this)">
+                <span>♨</span> Study Streak
+            </button>
+
+            <button class="nav-item" onclick="showSection('voice', this)">
+                <span>◉</span> Voice Assistant
+            </button>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <p>Plan. Focus. Learn.</p>
+            <p>Track. Improve.</p>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="header">
+
+    <!-- SEARCH BAR -->
+    <div class="top-search">
+        <span>⌕</span>
+        <input
+            type="text"
+            id="globalSearch"
+            placeholder="Search subjects, topics, notes, resources..."
+            onkeypress="handleGlobalSearch(event)"
+        >
+        <kbd>Ctrl + K</kbd>
+    </div>
+
+    <!-- DIRECT ACCESS LINKS -->
+    <!-- MDN -->
+<div class="top-links">
+
+    <!-- MDN -->
+    <a href="https://developer.mozilla.org/" target="_blank" rel="noopener noreferrer" class="tool-link" title="MDN Docs">
+        <svg class="tool-icon mdn-icon" viewBox="0 0 48 48">
+            <path d="M4 4h40v40H4z" fill="#000"/>
+            <path d="M8 8h32v32H8z" fill="#fff"/>
+            <text x="24" y="29" text-anchor="middle"
+                  font-size="12" font-weight="bold">MDN</text>
+        </svg>
+    </a>
+
+    <!-- GitHub -->
+    <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="tool-link" title="GitHub">
+        <svg class="tool-icon" viewBox="0 0 24 24">
+            <path fill="currentColor"
+                  d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.17c-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.73-1.53-.29-2.55-1.28-5.23-1.28-5.23-1.26 0-2.29.45-3.1 1.18-.12-.29-.51-1.47.11-3.06 0 0 .96-.31 3.15 1.18A10.9 10.9 0 0 1 12 8.14c.97 0 1.94.13 2.85.38 2.18-1.49 3.14-1.18 3.14-1.18.62 1.59.23 2.77.11 3.06.73.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.08.78 2.18v3.23c0 .31.21.68.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
+        </svg>
+    </a>
+
+    <!-- YouTube -->
+    <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer" class="tool-link" title="YouTube">
+        <svg class="tool-icon" viewBox="0 0 24 24">
+            <path fill="#FF0000"
+                  d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8z"/>
+            <path fill="#fff" d="M9.6 15.5 15.8 12 9.6 8.5v7z"/>
+        </svg>
+    </a>
+
+    <div class="top-divider"></div>
+
+    <div class="notification">🔔</div>
+    <div class="avatar">S</div>
+
+    <div class="profile-info">
+        <strong>Student</strong>
+        <small>Keep learning</small>
+    </div>
+
+</div>
+</header>
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="section active-section">
+
+            <div class="welcome">
+                <div>
+                    <p class="small-title">WELCOME BACK</p>
+                    <h2>Ready to focus today?</h2>
+                    <p>Manage your studies, track your progress and stay consistent.</p>
+                </div>
+
+                <button class="primary-btn" onclick="showSectionByName('timer')">
+                    Start Studying →
+                </button>
+            </div>
+
+
+            <!-- STAT CARDS -->
+
+            <div class="stats">
+
+                <div class="stat-card">
+                    <div class="stat-icon">▣</div>
+                    <div>
+                        <span>Subjects</span>
+                        <h3 id="subjectCount">6</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div>
+                        <span>Tasks</span>
+                        <h3 id="taskCount">0</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">♨</div>
+                    <div>
+                        <span>Study Streak</span>
+                        <h3><span id="dashboardStreak">0</span> days</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">◷</div>
+                    <div>
+                        <span>Focus Time</span>
+                        <h3 id="focusTime">0 min</h3>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+                <!-- TODAY'S TASKS -->
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <p class="small-title">TODAY</p>
+                            <h3>Today's Tasks</h3>
+                        </div>
+
+                        <button class="text-btn" onclick="showSectionByName('todo')">
+                            View all
+                        </button>
+                    </div>
+
+                    <div id="dashboardTasks" class="dashboard-tasks">
+                        <p class="empty-text">No tasks added yet.</p>
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="card">
+
+                    <div class="card-header">
+                        <div>
+                            <p class="small-title">QUICK ACTIONS</p>
+                            <h3>Study Tools</h3>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+
+                        <button onclick="showSectionByName('timer')">
+                            <span>◷</span>
+                            <strong>Study Timer</strong>
+                            <small>Start a focus session</small>
+                        </button>
+
+                        <button onclick="showSectionByName('todo')">
+                            <span>✓</span>
+                            <strong>Add Task</strong>
+                            <small>Plan your day</small>
+                        </button>
+
+                        <button onclick="showSectionByName('resources')">
+                            <span>▤</span>
+                            <strong>Resources</strong>
+                            <small>Access study materials</small>
+                        </button>
+
+                        <button onclick="showSectionByName('voice')">
+                            <span>◉</span>
+                            <strong>Voice Assistant</strong>
+                            <small>Use voice commands</small>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROGRESS -->
+
+            <div class="card progress-card">
+
+                <div class="card-header">
+                    <div>
+                        <p class="small-title">YOUR PROGRESS</p>
+                        <h3>Study Consistency</h3>
+                    </div>
+
+                    <span class="progress-percent" id="progressPercent">0%</span>
+                </div>
+
+                <div class="progress-bar">
+                    <div id="progressFill"></div>
+                </div>
+
+                <p id="progressText">
+                    Complete your tasks to improve your progress.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SUBJECTS ================= -->
+
+        <section id="subjects" class="section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="small-title">YOUR ACADEMICS</p>
+                    <h2>Subjects</h2>
+                    <p>Keep all your subjects organized in one place.</p>
+                </div>
+
+                <button class="primary-btn" onclick="addSubject()">
+                    + Add Subject
+                </button>
+            </div>
+
+
+            <div class="subject-grid" id="subjectGrid">
+
+                <div class="subject-card">
+                    <div class="subject-number">01</div>
+                    <h3>Analysis & Design of Algorithm</h3>
+                    <p>5th Semester</p>
+                    <div class="subject-progress">
+                        <div style="width:65%"></div>
+                    </div>
+                    <small>65% completed</small>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-number">02</div>
+                    <h3>Computer Graphics</h3>
+                    <p>5th Semester</p>
+                    <div class="subject-progress">
+                        <div style="width:55%"></div>
+                    </div>
+                    <small>55% completed</small>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-number">03</div>
+                    <h3>Database Management</h3>
+                    <p>5th Semester</p>
+                    <div class="subject-progress">
+                        <div style="width:70%"></div>
+                    </div>
+                    <small>70% completed</small>
+                </div>
+
+                <div class="subject-card">
+                    <div class="subject-number">04</div>
+                    <h3>Operating Systems</h3>
+                    <p>5th Semester</p>
+                    <div class="subject-progress">
+                        <div style="width:45%"></div>
+                    </div>
+                    <small>45% completed</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SYLLABUS ================= -->
+
+        <section id="syllabus" class="section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="small-title">ACADEMIC PLAN</p>
+                    <h2>Syllabus</h2>
+                    <p>Track your syllabus completion.</p>
+                </div>
+            </div>
+
+
+            <div class="syllabus-list">
+
+                <div class="syllabus-item">
+                    <div>
+                        <span class="badge">UNIT 01</span>
+                        <h3>Basic Concepts of Algorithm</h3>
+                        <p>Algorithm fundamentals and analysis.</p>
+                    </div>
+
+                    <div class="syllabus-right">
+                        <strong>70%</strong>
+                        <div class="mini-progress">
+                            <div style="width:70%"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="syllabus-item">
+                    <div>
+                        <span class="badge">UNIT 02</span>
+                        <h3>Algorithm Design Techniques</h3>
+                        <p>Important algorithmic approaches.</p>
+                    </div>
+
+                    <div class="syllabus-right">
+                        <strong>45%</strong>
+                        <div class="mini-progress">
+                            <div style="width:45%"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="syllabus-item">
+                    <div>
+                        <span class="badge">UNIT 03</span>
+                        <h3>Graph Algorithms</h3>
+                        <p>Graph representation and algorithms.</p>
+                    </div>
+
+                    <div class="syllabus-right">
+                        <strong>30%</strong>
+                        <div class="mini-progress">
+                            <div style="width:30%"></div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="syllabus-item">
+                    <div>
+                        <span class="badge">UNIT 04</span>
+                        <h3>Advanced Topics</h3>
+                        <p>Advanced algorithm concepts.</p>
+                    </div>
+
+                    <div class="syllabus-right">
+                        <strong>20%</strong>
+                        <div class="mini-progress">
+                            <div style="width:20%"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RESOURCES ================= -->
+
+        <section id="resources" class="section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="small-title">STUDY MATERIAL</p>
+                    <h2>Resources</h2>
+                    <p>Keep useful study resources together.</p>
+                </div>
+
+                <button class="primary-btn" onclick="addResource()">
+                    + Add Resource
+                </button>
+            </div>
+
+
+            <div class="resource-grid" id="resourceGrid">
+
+                <div class="resource-card">
+                    <div class="resource-icon">PDF</div>
+                    <h3>ADA Unit 1 Notes</h3>
+                    <p>Algorithm analysis and fundamentals.</p>
+                    <button onclick="openResource()">Open Resource →</button>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">WEB</div>
+                    <h3>SQL Practice</h3>
+                    <p>Practice SQL queries and databases.</p>
+                    <button onclick="openResource()">Open Resource →</button>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">DOC</div>
+                    <h3>Computer Graphics Notes</h3>
+                    <p>Unit-wise study material.</p>
+                    <button onclick="openResource()">Open Resource →</button>
+                </div>
+
+                <div class="resource-card">
+                    <div class="resource-icon">VID</div>
+                    <h3>Learning Videos</h3>
+                    <p>Useful educational videos.</p>
+                    <button onclick="openResource()">Open Resource →</button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TIMER ================= -->
+
+        <section id="timer" class="section">
+
+            <div class="timer-page">
+
+                <p class="small-title">FOCUS SESSION</p>
+                <h2>Study Timer</h2>
+                <p>Focus on one task at a time.</p>
+
+
+                <div class="timer-card">
+
+                    <div class="timer-circle">
+
+                        <div>
+                            <span id="timerDisplay">25:00</span>
+                            <small>FOCUS TIME</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="timer-controls">
+
+                        <button class="timer-btn" onclick="startTimer()">
+                            Start
+                        </button>
+
+                        <button class="timer-btn secondary" onclick="pauseTimer()">
+                            Pause
+                        </button>
+
+                        <button class="timer-btn secondary" onclick="resetTimer()">
+                            Reset
+                        </button>
+
+                    </div>
+
+
+                    <div class="timer-presets">
+
+                        <button onclick="setTimer(25)">25 min</button>
+                        <button onclick="setTimer(45)">45 min</button>
+                        <button onclick="setTimer(60)">60 min</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TODO ================= -->
+
+        <section id="todo" class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="small-title">DAILY PLANNING</p>
+                    <h2>To-Do List</h2>
+                    <p>Manage your daily study tasks.</p>
+                </div>
+
+            </div>
+
+
+            <div class="todo-container">
+
+                <div class="add-task">
+
+                    <input
+                        type="text"
+                        id="taskInput"
+                        placeholder="Enter a study task..."
+                        onkeypress="handleTaskEnter(event)"
+                    >
+
+                    <button class="primary-btn" onclick="addTask()">
+                        Add Task
+                    </button>
+
+                </div>
+
+
+                <div id="taskList" class="task-list">
+
+                    <p class="empty-text">
+                        No tasks yet. Add your first task.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= STREAK ================= -->
+
+        <section id="streak" class="section">
+
+            <div class="streak-page">
+
+                <p class="small-title">CONSISTENCY</p>
+                <h2>Study Streak</h2>
+                <p>Build consistency one study session at a time.</p>
+
+
+                <div class="streak-main">
+
+                    <div class="streak-number">
+                        <span>♨</span>
+                        <strong id="streakNumber">0</strong>
+                        <small>DAY STREAK</small>
+                    </div>
+
+
+                    <div class="streak-info">
+
+                        <h3>Keep going!</h3>
+
+                        <p>
+                            Complete your study sessions regularly
+                            to maintain your streak.
+                        </p>
+
+                        <button class="primary-btn" onclick="completeStudyDay()">
+                            Complete Today's Study
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="week">
+
+                    <div class="day">
+                        <span>M</span>
+                        <div></div>
+                    </div>
+
+                    <div class="day">
+                        <span>T</span>
+                        <div></div>
+                    </div>
+
+                    <div class="day">
+                        <span>W</span>
+                        <div></div>
+                    </div>
+
+                    <div class="day">
+                        <span>T</span>
+                        <div></div>
+                    </div>
+
+                    <div class="day">
+                        <span>F</span>
+                        <div></div>
+                    </div>
+
+                    <div class="day">
+                        <span>S</span>
+                        <div></div>
+                    </div>
+
+                    <div class="day">
+                        <span>S</span>
+                        <div></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= VOICE ================= -->
+
+        <section id="voice" class="section">
+
+            <div class="voice-page">
+
+                <p class="small-title">NATURAL INTERACTION</p>
+                <h2>Voice Assistant</h2>
+                <p>Use your voice to interact with Study Manager.</p>
+
+
+                <div class="voice-card">
+
+                    <div class="mic-circle" id="micCircle">
+                        ◉
+                    </div>
+
+                    <h3 id="voiceStatus">Tap the microphone</h3>
+
+                    <p>
+                        Try saying:
+                        <br>
+                        <strong>"Start my study timer"</strong>
+                    </p>
+
+                    <button class="mic-btn" onclick="startVoiceAssistant()">
+                        🎙 Start Listening
+                    </button>
+
+                    <div id="voiceResult" class="voice-result"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
